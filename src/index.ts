@@ -9,7 +9,11 @@ const PORT = process.env.PORT || 3001;
 
 app.use(helmet());
 app.use(urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://lumina.arthurdevleal.tech",
+  })
+);
 
 app.use(express.json());
 
