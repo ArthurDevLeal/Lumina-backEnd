@@ -10,21 +10,26 @@ app.use(
   cors({
     origin: "https://lumina.arthurdevleal.tech",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: [
+      "Content-Type", 
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin"
+    ],
+    exposedHeaders: ["Content-Length", "X-Request-Id"],
     credentials: true,
-    optionsSuccessStatus: 200,
-  })
-);
-
-app.use(
-  helmet({
-    crossOriginResourcePolicy: { policy: "cross-origin" },
+    optionsSuccessStatus: 204, 
+    maxAge: 86400, 
   })
 );
 
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 
+app.options("*", cors());
+
+// 5. Suas rotas
 app.use(mainRouter);
 
 app.get("/", (req, res) => {
